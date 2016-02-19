@@ -1,8 +1,9 @@
+var level = 3;
 // Enemies our player must avoid
 var Enemy = function() {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
-
+    var x, y, sprite;
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
@@ -14,6 +15,21 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
+    if(this.x >= 505){
+        this.x = -101;
+    }
+    this.x += dt * 101;
+    if(player.x+25 < this.x + 101 &&
+   player.x + 101-25 > this.x &&
+   player.y < this.y + 83 -20 &&
+   83-10 + player.y > this.y){
+        player.reset();
+    }
+
+//    rect1.x < rect2.x + rect2.width &&
+//    rect1.x + rect1.width > rect2.x &&
+//    rect1.y < rect2.y + rect2.height &&
+//    rect1.height + rect1.y > rect2.y
 };
 
 // Draw the enemy on the screen, required method for game
@@ -25,13 +41,91 @@ Enemy.prototype.render = function() {
 // This class requires an update(), render() and
 // a handleInput() method.
 
+// Player class
+var Player = function() {
+    // Variables applied to each of our instances go here,
+    // we've provided one for you to get started
+    var x, y, sprite;
+    this.x = 2 * 101;
+    this.y = 5 * 83 -10;
+
+    this.sprite = 'images/char-boy.png';
+};
+
+// Update the player's position
+Player.prototype.update = function() {
+    if (this.y <=0){
+        player.reset();
+    }
+
+};
+
+Player.prototype.reset = function(){
+    this.x = 2 * 101;
+    this.y = 5 * 83 -10;
+};
+
+// Draw the player on the screen
+Player.prototype.render = function() {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+};
+
+// Handle keyboard input to move player
+Player.prototype.handleInput = function(input){
+    if (input == 'left'){
+        if(player.x <= 0){
+            player.x = 404;
+        }
+        else {
+            player.x -= 101;
+        }
+    }
+    else if (input == 'right'){
+        if(player.x >= 404){
+            player.x =0;
+        }
+        else {
+            player.x += 101;
+        }
+    }
+    else if (input == 'up'){
+        if (player.y <= 0){
+            return
+        }
+        player.y -= 83;
+
+    }
+    else if (input == 'down'){
+        if(player.y >= 400){
+            return;
+        }
+        player.y += 83;
+
+    }
+};
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 
+var allEnemies = [];
+numEnemies = level;
 
+for(var i=0; i<numEnemies; i++){
+    var enemy = new Enemy();
+    randx = randomIntFromInterval(0,4);
+    randy = randomIntFromInterval(1,3);
+    enemy.x = randx * 101;
+    enemy.y = randy * 83 - 20;
+    allEnemies.push(enemy);
+}
 
+var player = new Player();
+
+function randomIntFromInterval(min,max)
+{
+    return Math.floor(Math.random()*(max-min+1)+min);
+}
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
 document.addEventListener('keyup', function(e) {
