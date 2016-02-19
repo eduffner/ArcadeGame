@@ -1,5 +1,13 @@
 frontend-nanodegree-arcade-game
 ===============================
+# Use
+
+Open index.html in your browser
+
+# Game Play
+
+Use the _arrow_ keys to move the player around the board. Try to make your way across the stones to the water. **Be careful** not to run into the bugs! If you do you will start over again on the grass.
+
 
 Students should use this [rubric](https://www.udacity.com/course/viewer/#!/c-nd001/l-2696458597/m-2687128535) for self-checking their submission.
 

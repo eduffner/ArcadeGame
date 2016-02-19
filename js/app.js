@@ -19,17 +19,13 @@ Enemy.prototype.update = function(dt) {
         this.x = -101;
     }
     this.x += dt * 101;
-    if(player.x+25 < this.x + 101 &&
-   player.x + 101-25 > this.x &&
-   player.y < this.y + 83 -20 &&
-   83-10 + player.y > this.y){
+    if( player.x+25 < this.x + 101 &&
+        player.x + 101-25 > this.x &&
+        player.y < this.y + 83 -20 &&
+        83-10 + player.y > this.y)  {
+
         player.reset();
     }
-
-//    rect1.x < rect2.x + rect2.width &&
-//    rect1.x + rect1.width > rect2.x &&
-//    rect1.y < rect2.y + rect2.height &&
-//    rect1.height + rect1.y > rect2.y
 };
 
 // Draw the enemy on the screen, required method for game
@@ -55,7 +51,7 @@ var Player = function() {
 // Update the player's position
 Player.prototype.update = function() {
     if (this.y <=0){
-        player.reset();
+        this.reset();
     }
 
 };
@@ -73,26 +69,26 @@ Player.prototype.render = function() {
 // Handle keyboard input to move player
 Player.prototype.handleInput = function(input){
     if (input == 'left'){
-        if(player.x <= 0){
-            player.x = 404;
+        if(this.x <= 0){
+            this.x = 404;
         }
         else {
-            player.x -= 101;
+            this.x -= 101;
         }
     }
     else if (input == 'right'){
-        if(player.x >= 404){
-            player.x =0;
+        if(this.x >= 404){
+            this.x =0;
         }
         else {
-            player.x += 101;
+            this.x += 101;
         }
     }
     else if (input == 'up'){
-        if (player.y <= 0){
+        if (this.y <= 0){
             return
         }
-        player.y -= 83;
+        this.y -= 83;
 
     }
     else if (input == 'down'){
@@ -122,8 +118,7 @@ for(var i=0; i<numEnemies; i++){
 
 var player = new Player();
 
-function randomIntFromInterval(min,max)
-{
+function randomIntFromInterval(min,max){
     return Math.floor(Math.random()*(max-min+1)+min);
 }
 // This listens for key presses and sends the keys to your
