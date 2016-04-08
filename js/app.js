@@ -92,10 +92,10 @@ Player.prototype.handleInput = function(input){
 
     }
     else if (input == 'down'){
-        if(player.y >= 400){
+        if(this.y >= 400){
             return;
         }
-        player.y += 83;
+        this.y += 83;
 
     }
 };
